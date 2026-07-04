@@ -1400,3 +1400,45 @@ a.press-row__title:hover { border-color: var(--ink); }
 
 /* nav: con 7 voci, va a capo invece di sforare su schermi stretti */
 .nav { flex-wrap: wrap; justify-content: flex-end; row-gap: 0.35rem; }
+
+/* ---------------------------------------------------------
+   Topnav — menu principale (desktop: una riga con wrap; mobile: a capo)
+   --------------------------------------------------------- */
+.topnav {
+  padding: 0.6rem clamp(1rem, 4vw, 2rem);
+}
+.topnav__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topnav__inner a,
+.topnav__inner button[data-cart-open] {
+  color: var(--clay);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  padding: 0;
+}
+.topnav__inner a:hover,
+.topnav__inner button[data-cart-open]:hover {
+  color: var(--ink);
+}
+.topnav__sep {
+  color: var(--clay-light);
+  opacity: 0.5;
+}
+@media (max-width: 600px) {
+  .topnav__inner { gap: 0.4rem 0.55rem; font-size: 0.7rem; }
+}
