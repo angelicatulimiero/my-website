@@ -726,6 +726,8 @@ a { color: inherit; text-decoration: none; }
 .cv-row__t {
   display: block; font-family: var(--display); font-size: 1.2rem; line-height: 1.3;
 }
+a.cv-row__t { color: inherit; text-decoration: none; cursor: pointer; position: relative; z-index: 1; }
+a.cv-row__t:hover { text-decoration: underline; text-underline-offset: 3px; opacity: .7; }
 .cv-row__n {
   display: block; color: var(--clay); font-style: italic; font-size: 0.95rem;
   margin-top: 0.15rem;

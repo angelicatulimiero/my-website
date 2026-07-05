@@ -240,7 +240,7 @@
       const row = el("div", "cv-row reveal");
       row.appendChild(el("span", "cv-row__y", e.year));
       const b = el("div");
-      b.appendChild(el("span", "cv-row__t", e.title));
+      if (e.link) { const t = el("a", "cv-row__t", e.title); t.href = e.link; t.target = "_blank"; t.rel = "noopener"; b.appendChild(t); } else { b.appendChild(el("span", "cv-row__t", e.title)); }
       if (e.note) b.appendChild(el("span", "cv-row__n", e.note));
       row.appendChild(b); cv.appendChild(row);
     });

@@ -200,12 +200,14 @@ const PRACTICE = [
 
 /* ---------- EXHIBITIONS — CV (pagina About) ---------- */
 const EXHIBITIONS = [
-  { year: "2025", title: "Matter of Matter", note: "Upcoming exhibition" },
+  { year: "2026", title: "Salemi School of Ceramics", note: "Teaching — Hand-Building courses, Sicily", link: "https://www.salemiceramics.com/our-teachers/angelica-tulimiero" },
+  { year: "2026", title: "Artist Talk — Collezione Costenaro", note: "300 Storie POP, with Ceramicoscopio collective", link: "https://www.occhi.it/magazine/cultura/angelica-tulimiero-ceramic-globetrotter-in-cina-90897851" },
+  { year: "2025", title: "Appunti di Viaggio", note: "Solo exhibition, Villa Lattes Istrana" },
+  { year: "2025", title: "Salemi School of Ceramics", note: "Teaching — Hand-Building courses, Sicily", link: "https://www.salemiceramics.com/our-teachers/angelica-tulimiero" },
   { year: "2024", title: "Intertwined", note: "Finalist — Mediterraneo Award" },
-  { year: "2024", title: "Appunti di Viaggio", note: "Solo exhibition, Villa Lattes" },
   { year: "2024", title: "Artist Residency — Taoxichuan Art Centre", note: "Jingdezhen, China" },
   { year: "2022–23", title: "Action", note: "Group exhibitions & art fairs, various venues" },
-  { year: "2021", title: "Particelle", note: "Collective & personal shows" },
+  { year: "2021", title: "Particelle", note: "Solo show — Serra dei Giardini, Venice; curated by Microclima" },
   { year: "2020", title: "Pillows for Beautiful Thoughts", note: "Personal & collective shows" },
   { year: "2016", title: "In Deeper", note: "International exhibitions" },
 ];
