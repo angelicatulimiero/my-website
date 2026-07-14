@@ -98,21 +98,14 @@
     if (vb && typeof MEDIA !== "undefined") vb.appendChild(imgEl(MEDIA.vacationBand, MEDIA.vacationBand.title));
 
     const w = document.querySelector("[data-home-works]");
-    if (w) {
-      const PRIORITY = ["Incontri", "Celadon Thoughts", "Non Compliant", "Indulge", "Tensions"];
-      const bySeries = {}; const rest = [];
-      PORTFOLIO.forEach(x => { const k = x.series || "Other"; (bySeries[k] = bySeries[k] || []).push(x); });
-      const others = Object.keys(bySeries).filter(k => PRIORITY.indexOf(k) < 0)
-        .sort((a, b) => Math.max.apply(null, bySeries[b].map(x => x.year || 0)) - Math.max.apply(null, bySeries[a].map(x => x.year || 0)));
-      PRIORITY.filter(k => bySeries[k]).concat(others).forEach(k => w.appendChild(seriesCard(k, bySeries[k])));
-    }
+    if (w) PORTFOLIO.filter(x => x.featured).slice().sort((a, b) => (b.year || 0) - (a.year || 0)).slice(0, 4).forEach(x => w.appendChild(portfolioCard(x)));
     const s = document.querySelector("[data-home-shop]");
     if (s) SHOP.filter(x => x.featured).slice(0, 3).forEach(x => s.appendChild(shopCard(x)));
   }
 
   /* ---------- PORTFOLIO ---------- */
   function seriesCard(serie, works) {
-    const cover = works.find(w => w.cover) || works.find(w => w.featured) || works[0];
+    const cover = works.find(w => w.featured) || works[0];
     const a = el("a", "piece-card reveal");
     a.href = "portfolio.html?serie=" + encodeURIComponent(serie);
     a.setAttribute("aria-label", serie + ", " + works.length + " works");
