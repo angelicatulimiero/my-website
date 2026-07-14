@@ -104,52 +104,11 @@
   }
 
   /* ---------- PORTFOLIO ---------- */
-  function seriesCard(serie, works) {
-    const cover = works.find(w => w.featured) || works[0];
-    const a = el("a", "piece-card reveal");
-    a.href = "portfolio.html?serie=" + encodeURIComponent(serie);
-    a.setAttribute("aria-label", serie + ", " + works.length + " works");
-    const frame = el("div", "frame");
-    frame.appendChild(imgEl(cover, serie));
-    a.appendChild(frame);
-    const meta = el("div", "piece-card__meta");
-    const left = el("div");
-    const years = works.map(w => w.year || 0).filter(Boolean);
-    const span = years.length ? (Math.min.apply(null,years) === Math.max.apply(null,years) ? String(years[0]) : Math.min.apply(null,years) + "–" + Math.max.apply(null,years)) : "";
-    left.appendChild(el("div", "piece-card__sub", span));
-    left.appendChild(el("h3", "piece-card__name", serie));
-    meta.appendChild(left);
-    meta.appendChild(el("span", "piece-card__price", works.length + (works.length === 1 ? " work" : " works")));
-    a.appendChild(meta);
-    return a;
-  }
   function renderPortfolio() {
     const grid = document.querySelector("[data-portfolio]");
     if (!grid) return;
-    const serie = new URLSearchParams(location.search).get("serie");
-    const c = document.querySelector("[data-count]");
-    if (serie) {
-      const works = PORTFOLIO.filter(w => w.series === serie).slice().sort((a, b) => (b.year || 0) - (a.year || 0));
-      if (!works.length) { grid.innerHTML = '<div class="vuoto" style="grid-column:1/-1">Series not found. <a class="textlink" href="portfolio.html">Back to portfolio</a>.</div>'; return; }
-      document.title = serie + " — Angelica Tulimiero";
-      const head = document.querySelector("[data-portfolio-title]");
-      if (head) head.textContent = serie;
-      works.forEach(w => grid.appendChild(portfolioCard(w)));
-      if (c) c.textContent = works.length + (works.length === 1 ? " work" : " works");
-      const back = el("a", "textlink", "&larr; All series");
-      back.href = "portfolio.html";
-      grid.parentElement.insertBefore(back, grid);
-    } else {
-      const order = [];
-      const bySeries = {};
-      PORTFOLIO.slice().sort((a, b) => (b.year || 0) - (a.year || 0)).forEach(w => {
-        const k = w.series || "Other";
-        if (!bySeries[k]) { bySeries[k] = []; order.push(k); }
-        bySeries[k].push(w);
-      });
-      order.forEach(k => grid.appendChild(seriesCard(k, bySeries[k])));
-      if (c) c.textContent = order.length + " series · " + PORTFOLIO.length + " works";
-    }
+    PORTFOLIO.slice().sort((a, b) => (b.year || 0) - (a.year || 0)).forEach(w => grid.appendChild(portfolioCard(w)));
+    const c = document.querySelector("[data-count]"); if (c) c.textContent = PORTFOLIO.length + " works";
   }
   function renderProject() {
     const root = document.querySelector("[data-project]");
@@ -178,16 +137,7 @@
       "Unique work. Add it to your selection and Angelica will confirm availability, price and insured shipping for fragile pieces."));
     root.appendChild(media); root.appendChild(panel);
     const more = document.querySelector("[data-related]");
-    if (more) {
-      const sameSeries = PORTFOLIO.filter(x => x.id !== w.id && x.series === w.series);
-      const relTitle = document.querySelector("[data-related-title]");
-      if (sameSeries.length) {
-        if (relTitle) relTitle.textContent = "More from this series";
-        sameSeries.slice(0, 8).forEach(x => more.appendChild(portfolioCard(x)));
-      } else {
-        PORTFOLIO.filter(x => x.id !== w.id).slice(0, 4).forEach(x => more.appendChild(portfolioCard(x)));
-      }
-    }
+    if (more) PORTFOLIO.filter(x => x.id !== w.id).slice(0, 4).forEach(x => more.appendChild(portfolioCard(x)));
   }
 
   /* ---------- SHOP ---------- */
