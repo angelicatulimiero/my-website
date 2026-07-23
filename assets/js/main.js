@@ -212,7 +212,23 @@
     if (!p) { root.innerHTML = '<div class="vuoto" style="grid-column:1/-1">Piece not found. <a class="textlink" href="shop.html">Back to shop</a>.</div>'; return; }
     document.title = p.title + " — Angelica Tulimiero";
     const media = el("div", "detail__media");
-    const frame = el("div", "frame"); frame.appendChild(imgEl(p, p.title)); media.appendChild(frame);
+    const frame = el("div", "frame"); const mainImg = imgEl(p, p.title); frame.appendChild(mainImg); media.appendChild(frame);
+    if (p.gallery && p.gallery.length) {
+      const thumbs = el("div", "detail__thumbs");
+      const allImgs = [p.img].concat(p.gallery);
+      allImgs.forEach((fn, i) => {
+        const t = el("button", "detail__thumb" + (i === 0 ? " is-active" : ""));
+        const ti = document.createElement("img"); ti.src = "assets/img/" + fn; ti.alt = p.title + " — view " + (i + 1); ti.loading = "lazy";
+        t.appendChild(ti);
+        t.addEventListener("click", () => {
+          mainImg.src = "assets/img/" + fn;
+          thumbs.querySelectorAll(".detail__thumb").forEach(x => x.classList.remove("is-active"));
+          t.classList.add("is-active");
+        });
+        thumbs.appendChild(t);
+      });
+      media.appendChild(thumbs);
+    }
     const panel = el("div", "detail__panel");
     panel.appendChild(el("h1", "detail__title", p.title));
     if (p.note) panel.appendChild(el("p", "detail__cat", p.note));
@@ -293,14 +309,21 @@
     const stu = document.querySelector("[data-bio-studio]");
     if (stu && typeof MEDIA !== "undefined") stu.appendChild(imgEl(MEDIA.bioStudio, "In the studio"));
     const cv = document.querySelector("[data-exhibitions]");
-    if (cv) EXHIBITIONS.forEach(e => {
-      const row = el("div", "cv-row reveal");
-      row.appendChild(el("span", "cv-row__y", e.year));
-      const b = el("div");
-      if (e.link) { const t = el("a", "cv-row__t", e.title); t.href = e.link; t.target = "_blank"; t.rel = "noopener"; b.appendChild(t); } else { b.appendChild(el("span", "cv-row__t", e.title)); }
-      if (e.note) b.appendChild(el("span", "cv-row__n", e.note));
-      row.appendChild(b); cv.appendChild(row);
-    });
+    if (cv) {
+      let curCat = null;
+      EXHIBITIONS.forEach(e => {
+        if (e.cat && e.cat !== curCat) { curCat = e.cat; cv.appendChild(el("h3", "cv-cat reveal", e.cat)); }
+        const row = el("div", "cv-row reveal");
+        row.appendChild(el("span", "cv-row__y", e.year || "—"));
+        const b = el("div");
+        if (e.link) { const t = el("a", "cv-row__t", e.title); t.href = e.link; t.target = "_blank"; t.rel = "noopener"; b.appendChild(t); } else { b.appendChild(el("span", "cv-row__t", e.title)); }
+        if (e.note) b.appendChild(el("span", "cv-row__n", e.note));
+        if (e.credit) b.appendChild(el("span", "cv-row__c", "Photo: " + e.credit));
+        row.appendChild(b);
+        if (e.img) { const im = imgEl(e, e.title); im.className = "cv-row__img"; row.appendChild(im); }
+        cv.appendChild(row);
+      });
+    }
   }
 
   /* ---------- PRESS (home) ---------- */

@@ -1444,3 +1444,15 @@ a.press-row__title:hover { border-color: var(--ink); }
 @media (max-width: 600px) {
   .topnav__inner { gap: 0.4rem 0.55rem; font-size: 0.7rem; }
 }
+
+/* --- Exhibitions & Projects: categorie + miniature --- */
+.cv-cat{ margin:2.2rem 0 .6rem; font-size:.95rem; letter-spacing:.06em; text-transform:uppercase; opacity:.65; }
+.cv-row__img{ width:88px; height:88px; object-fit:cover; border-radius:4px; margin-left:auto; }
+.cv-row__c{ display:block; font-size:.75rem; opacity:.55; margin-top:.15rem; }
+
+
+/* --- Scheda prodotto: miniature galleria --- */
+.detail__thumbs{ display:flex; gap:.5rem; margin-top:.75rem; flex-wrap:wrap; }
+.detail__thumb{ width:64px; height:64px; padding:0; border:1px solid var(--line,#e2ddd3); background:none; cursor:pointer; border-radius:4px; overflow:hidden; opacity:.6; transition:opacity .2s; }
+.detail__thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.detail__thumb.is-active,.detail__thumb:hover{ opacity:1; }
